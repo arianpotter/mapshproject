@@ -6,6 +6,16 @@
 #include "Design.h"
 #include <fstream>
 using namespace std;
+struct user{
+    string username;
+    string password;
+    string name;
+    string family;
+    string number;
+    string refrence;
+    string bacc;
+    string bpass;
+}u;
 
 /*
 bool recaptcha(string u, string p)
@@ -123,31 +133,27 @@ void sign_up(){
 	gotoxy((columns - 50) / 2+2,(rows -39) / 2+35);
 	cout<<"Bank Account Password: ";
 
-    //getting info:
+//connecting users file :
 
     fstream user;
-    user.open("Users Information.txt",ios::in | ios::app);
-    getline(user,temp);
-    if(temp!=""){
+    user.open("r.txt",ios::in |ios::out|ios::app);
+    user<<"\n";
 
-        user.close();
-        user.open("Users Information.txt",ios::app);
-
-        user<<'\n';
-        temp="";
-    }
-
-    else{
-        user.close();
-        user.open("Users Information.txt",ios::app);
-    }
-
-
+//getting info:
+//=========================username============================
     gotoxy((columns - 50) / 2+2,(rows -39) / 2+3);
     while (1)
 	{
 		ch = _getch();
-		if (ch == 13) break;
+		if (ch == 13){
+            if(temp.length()<5){
+                gotoxy(0,0);
+                cout<<"Error: not enough character";
+                 gotoxy((columns - 50) / 2+2+temp.length(),(rows -39) / 2+3);
+                 continue;
+            }
+            break;
+		}
 		if (temp.length() == 15 && ch != 8) continue;
 		if (ch == 8)
 		{
@@ -169,15 +175,25 @@ void sign_up(){
                 continue;
 	}
 	}
-    user<<temp;
+    u.username=temp;
     temp="";
     gotoxy(0,0);
-    cout<<"                      ";
+    cout<<"                                              ";
+//=========================password========================================
     gotoxy((columns - 50) / 2+2,(rows -39) / 2+7);
     while (1)
 	{
 		ch = _getch();
-		if (ch == 13) break;
+		if (ch == 13){
+                if(temp.length()<4){
+                    gotoxy(0,0);
+                cout<<"Error: not enough character";
+                 gotoxy((columns - 50) / 2+2+temp.length(),(rows -39) / 2+7);
+                 continue;
+                }
+                break;
+        }
+
 		if (temp.length() == 10 && ch != 8) continue;
 		if (ch == 8)
 		{
@@ -199,11 +215,10 @@ void sign_up(){
                 continue;
 	}
 	}
-    user<<"\t"<<temp;
     tempp=temp;
     temp="";
     gotoxy(0,0);
-    cout<<"                      ";
+    cout<<"                                            ";
 l:    gotoxy((columns - 50) / 2+2,(rows -39) / 2+11);
     while (1)
 	{
@@ -244,12 +259,23 @@ l:    gotoxy((columns - 50) / 2+2,(rows -39) / 2+11);
     temp="";
     goto l;
 	}
+	u.password=tempp;
 	temp="";
+	tempp="";
+//==============================name================================
 	 gotoxy((columns - 50) / 2+2,(rows -39) / 2+15);
 	 while (1)
 	{
 		ch = _getch();
-		if (ch == 13) break;
+		if (ch == 13){
+            if(temp.length()==0){
+                gotoxy(0,0);
+                cout<<"Error: please enter a username";
+                gotoxy((columns - 50) / 2+2+temp.length(),(rows -39) / 2+15);
+                continue;
+            }
+            break;
+		}
 		if (temp.length() == 38 && ch != 8) continue;
 		if (ch == 8)
 		{
@@ -271,15 +297,24 @@ l:    gotoxy((columns - 50) / 2+2,(rows -39) / 2+11);
                 continue;
 	}
 	}
-    user<<"\t"<<temp;
+    u.name=temp;
     temp="";
     gotoxy(0,0);
-    cout<<"                      ";
+    cout<<"                                                    ";
+//==================================family=========================================
 	 gotoxy((columns - 50) / 2+2,(rows -39) / 2+19);
 	 while (1)
 	{
 		ch = _getch();
-		if (ch == 13) break;
+		if (ch == 13){
+            if(temp.length()==0){
+                gotoxy(0,0);
+                cout<<"Error: please enter a family";
+                 gotoxy((columns - 50) / 2+2+temp.length(),(rows -39) / 2+19);
+                 continue;
+            }
+            break;
+		}
 		if (temp.length() == 15 && ch != 8) continue;
 		if (ch == 8)
 		{
@@ -301,15 +336,24 @@ l:    gotoxy((columns - 50) / 2+2,(rows -39) / 2+11);
                 continue;
 	}
 	}
-    user<<"\t"<<temp;
+    u.family=temp;
     temp="";
     gotoxy(0,0);
-    cout<<"                      ";
+    cout<<"                                                  ";
+//=============================telephone========================================
 	 gotoxy((columns - 50) / 2+2,(rows -39) / 2+23);
 	 while (1)
 	{
 		ch = _getch();
-		if (ch == 13) break;
+		if (ch == 13){
+            if(temp.length()==0){
+                gotoxy(0,0);
+                cout<<"Error: please enter a telephone number";
+                 gotoxy((columns - 50) / 2+2+temp.length(),(rows -39) / 2+23);
+                 continue;
+            }
+            break;
+		}
 		if (temp.length() == 15 && ch != 8) continue;
 		if (ch == 8)
 		{
@@ -331,10 +375,11 @@ l:    gotoxy((columns - 50) / 2+2,(rows -39) / 2+11);
                 continue;
 	}
 	}
-    user<<"\t"<<temp;
+    u.number=temp;
     temp="";
     gotoxy(0,0);
-    cout<<"                      ";
+    cout<<"                                                    ";
+//=================================refrence======================================
 	 gotoxy((columns - 50) / 2+2,(rows -39) / 2+28);
 	 while (1)
 	{
@@ -361,12 +406,13 @@ l:    gotoxy((columns - 50) / 2+2,(rows -39) / 2+11);
                 continue;
 	}
 	}
-    user<<"\t"<<temp;
+    u.refrence=temp;
     temp="";
     gotoxy(0,0);
     cout<<"                      ";
 
-    //banck account getting and checking
+
+//banck account getting and checking
 
 
 
@@ -411,7 +457,7 @@ while(!acc.eof())
             break;
         }
   }
-  if(pos==string::npos){
+  if(pos==string::npos||temp.length()!=6){
     gotoxy(0,0);
     cout<<"Error: wrong bank account number!";
     gotoxy((columns - 50) / 2+2,(rows -39) / 2+33);
@@ -419,7 +465,7 @@ while(!acc.eof())
     temp="";
     goto l2;
   }
-  user<<"\t"<<temp;
+  u.bacc=temp;
   gotoxy(0,0);
   cout<<"                                   ";
   temp="";
@@ -427,7 +473,15 @@ while(!acc.eof())
 	 while (1)
 	{
 		ch = _getch();
-		if (ch == 13) break;
+		if (ch == 13){
+            if(temp.length()<4){
+                gotoxy(0,0);
+                cout<<"Error: not enough character";
+                 gotoxy((columns - 50) / 2+2+temp.length(),(rows -39) / 2+37);
+                 continue;
+            }
+            break;
+		}
 		if (temp.length() == 4 && ch != 8) continue;
 		if (ch == 8)
 		{
@@ -455,9 +509,10 @@ while(!acc.eof())
     pos=line.find(temp); // search
       if(pos!=string::npos) // string::npos is returned if string is not found
         {
-            user<<"\t"<<temp;
+            u.bpass=temp;
             gotoxy(0,0);
             cout<<"bank account connected!";
+            user<<'1'<<u.bacc<<'\t'<<u.username<<'\t'<<u.password<<'\t'<<u.name<<'\t'<<u.family<<'\t'<<u.number<<'\t'<<u.refrence<<'\t'<<u.bacc<<'\t'<<u.bpass;
         }
         else{
             gotoxy(0,0);
@@ -467,6 +522,9 @@ while(!acc.eof())
             temp="";
             goto l3;
         }
+//closing files
+    acc.close();
+    user.close();
 }
 void welcome()
 {
@@ -540,12 +598,13 @@ void loading(int time, int processcolor, int backcolor, int n)
 }
 
 
+
 int main()
 {
 	fullscreen();
 	screensize();
-	loading(50, 255, 31, 50);
-	welcome();
+	//loading(50, 255, 31, 50);
+	//welcome();
 	sign_up();
 	gotoxy(0, rows);
 }
